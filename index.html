@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Joe's Hotdogs</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>
+            Joe's Hotdogs
+        </h1>
+        <form method="post">
+            Hotdogs ($3.25):<br />
+            <input type="number" id="hotdogs" min="0" value="0" step="1">
+            <br /><br />
+            French Fries ($2.00):<br />
+            <input type="number" id="fries" min="0" value="0" step="1">
+            <br /><br />
+            Drinks ($1.50):<br />
+            <input type="number" id="drinks" min="0" value="0" step="1">
+            <br /><br />
+            <input type="submit" onclick="order()" value="Order">
+        </form>
+        <script type="text/javascript">
+            function order() {
+                var products = ["hotdogs", "fries", "drinks"];
+                var prices = [3.25, 2.0, 1.5];
+                var quantity = [0, 0, 0];
+                var price = 0.0;
+
+                for (i = 0; i < 3; i++) {
+                    quantity[i] = parseInt(document.getElementById(products[i]).value, 10);
+                    price = price + (prices[i] * quantity[i] * 1.0);
+                }
+                price = price.toFixed(2);
+
+                var discount = 0.0;
+                if (price >= 20) {
+                    discount = price * 0.1;
+                    discount = discount.toFixed(2);
+                }
+
+                var tax = 0.0;
+                tax = (price - discount) * 0.0625;
+                tax = tax.toFixed(2);
+
+                var total = 0.0;
+                total = (parseFloat(price) - parseFloat(discount)) + parseFloat(tax);
+
+                alert("Order: $" + price + "\nDiscount: -$" + discount + "\nTax: $" + tax + "\nTotal: $" + total);
+            }
+        </script>
+    </body>
+</html>
